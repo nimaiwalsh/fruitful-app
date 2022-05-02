@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "971023613221",
+    "project_id": "fruitful-72bac",
+    "storage_bucket": "fruitful-72bac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971023613221:android:1103d00752c544840baecc",
+        "android_client_info": {
+          "package_name": "com.nims.fruitful"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971023613221-ep49h8sqpvg1rat95j0a6ecgh80gde1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4APiGRaVdIE3quJqPM6irIB9Q7moNfpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971023613221-ep49h8sqpvg1rat95j0a6ecgh80gde1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
