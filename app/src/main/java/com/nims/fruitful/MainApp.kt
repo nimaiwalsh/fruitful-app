@@ -23,7 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 @ExperimentalMaterialApi
 fun MainApp() {
-    FruitfulTheme() {
+    FruitfulTheme {
         Surface(color = MaterialTheme.colors.background) {
 
             val appState = rememberAppState()
