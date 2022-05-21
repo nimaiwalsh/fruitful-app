@@ -1,5 +1,8 @@
-package com.nims.fruitful.data.service
+package com.nims.fruitful.data.service.module
 
+import com.nims.fruitful.data.service.AccountService
+import com.nims.fruitful.data.service.LogService
+import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.data.service.impl.AccountServiceImpl
 import com.nims.fruitful.data.service.impl.LogServiceImpl
 import com.nims.fruitful.data.service.impl.StorageServiceImpl
