@@ -6,6 +6,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.nims.fruitful.data.service.StorageService
+import com.nims.fruitful.model.Idea
 import com.nims.fruitful.model.Task
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
         onDocumentEvent: (Boolean, Task) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        val query = Firebase.firestore.collection(TASK_COLLECTION).whereEqualTo(USER_ID, userId)
+        val query = Firebase.firestore.collection(IDEA_COLLECTION).whereEqualTo(USER_ID, userId)
 
         listenerRegistration = query.addSnapshotListener { value, error ->
             if (error != null) {
@@ -36,38 +37,38 @@ class StorageServiceImpl @Inject constructor() : StorageService {
         listenerRegistration?.remove()
     }
 
-    override fun getTask(
-        taskId: String,
+    override fun getIdea(
+        ideaId: String,
         onError: (Throwable) -> Unit,
         onSuccess: (Task) -> Unit
     ) {
         Firebase.firestore
-            .collection(TASK_COLLECTION)
-            .document(taskId)
+            .collection(IDEA_COLLECTION)
+            .document(ideaId)
             .get()
             .addOnFailureListener { error -> onError(error) }
             .addOnSuccessListener { result -> onSuccess(result.toObject() ?: Task()) }
     }
 
-    override fun saveTask(task: Task, onResult: (Throwable?) -> Unit) {
+    override fun saveIdea(idea: Idea, onResult: (Throwable?) -> Unit) {
         Firebase.firestore
-            .collection(TASK_COLLECTION)
-            .document(task.id)
-            .set(task)
+            .collection(IDEA_COLLECTION)
+            .document(idea.id)
+            .set(idea)
             .addOnCompleteListener { onResult(it.exception) }
     }
 
-    override fun deleteTask(taskId: String, onResult: (Throwable?) -> Unit) {
+    override fun deleteIdea(ideaId: String, onResult: (Throwable?) -> Unit) {
         Firebase.firestore
-            .collection(TASK_COLLECTION)
-            .document(taskId)
+            .collection(IDEA_COLLECTION)
+            .document(ideaId)
             .delete()
             .addOnCompleteListener { onResult(it.exception) }
     }
 
     override fun deleteAllForUser(userId: String, onResult: (Throwable?) -> Unit) {
         Firebase.firestore
-            .collection(TASK_COLLECTION)
+            .collection(IDEA_COLLECTION)
             .whereEqualTo(USER_ID, userId)
             .get()
             .addOnFailureListener { error -> onResult(error) }
@@ -83,7 +84,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
         onResult: (Throwable?) -> Unit
     ) {
         Firebase.firestore
-            .collection(TASK_COLLECTION)
+            .collection(IDEA_COLLECTION)
             .whereEqualTo(USER_ID, oldUserId)
             .get()
             .addOnFailureListener { error -> onResult(error) }
@@ -94,7 +95,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
     }
 
     companion object {
-        private const val TASK_COLLECTION = "Task"
+        private const val IDEA_COLLECTION = "Idea"
         private const val USER_ID = "userId"
     }
 }

@@ -19,6 +19,21 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.nims.fruitful.R.string as AppText
 import com.nims.fruitful.R.drawable as AppIcon
 
+@Composable
+fun BasicField(
+    @StringRes text: Int,
+    value: String,
+    onNewValue: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        singleLine = true,
+        modifier = modifier,
+        value = value,
+        onValueChange = { onNewValue(it) },
+        placeholder = { Text(stringResource(text)) }
+    )
+}
 
 @Composable
 fun EmailField(value: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {

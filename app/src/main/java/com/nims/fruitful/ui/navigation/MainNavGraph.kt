@@ -5,7 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.nims.fruitful.MainAppState
-import com.nims.fruitful.ui.screens.dailyideas.DailyIdeasScreen
+import com.nims.fruitful.ui.screens.daily_ideas.DailyIdeasScreen
+import com.nims.fruitful.ui.screens.edit_idea.EditIdeaScreen
 import com.nims.fruitful.ui.screens.login.LoginScreen
 import com.nims.fruitful.ui.screens.splash.SplashScreen
 
@@ -22,6 +23,17 @@ fun NavGraphBuilder.fruitfulGraph(appState: MainAppState) {
     composable(LOGIN_SCREEN) {
         LoginScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
+
+    composable(
+        route = "$EDIT_IDEA_SCREEN${IDEA_ID_ARG}",
+        arguments = listOf(navArgument(IDEA_ID) { defaultValue = IDEA_DEFAULT_ID })
+    ) {
+        EditIdeaScreen(
+            popUpScreen = { appState.popUp() },
+            ideaId = it.arguments?.getString(IDEA_ID) ?: IDEA_DEFAULT_ID
+        )
+    }
+
 //
 //    composable(SETTINGS_SCREEN) {
 //        SettingsScreen(
@@ -38,14 +50,5 @@ fun NavGraphBuilder.fruitfulGraph(appState: MainAppState) {
 //        TasksScreen(openScreen = { route -> appState.navigate(route) })
 //    }
 //
-//    composable(
-//        route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
-//        arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
-//    ) {
-//        EditTaskScreen(
-//            popUpScreen = { appState.popUp() },
-//            taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
-//        )
-//    }
 
 }

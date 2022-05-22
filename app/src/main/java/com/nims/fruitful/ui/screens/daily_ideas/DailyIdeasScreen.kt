@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.dailyideas
+package com.nims.fruitful.ui.screens.daily_ideas
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 @ExperimentalMaterialApi
-fun DailyIdeasScreen(openScreen: (String) -> Unit, viewModel: DailyIdeasViewModel = hiltViewModel()) {
+fun DailyIdeasScreen(openScreen: (route: String) -> Unit, viewModel: DailyIdeasViewModel = hiltViewModel()) {
 
     Scaffold(
         floatingActionButton = {
