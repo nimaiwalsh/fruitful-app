@@ -46,8 +46,6 @@ private fun ScreenContent(openScreen: (route: String) -> Unit, viewModel: DailyI
 
     val ideas = viewModel.ideas
 
-    println("ideas: $ideas")
-
     Column(
         modifier = Modifier
             .fillMaxWidth()

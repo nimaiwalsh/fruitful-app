@@ -71,8 +71,6 @@ class DailyIdeasViewModel @Inject constructor(
     private fun updateIdeaInList(idea: Idea) {
         val index = ideas.indexOfFirst { it.id == idea.id }
         if (index < 0) ideas.add(idea) else ideas[index] = idea
-
-        println("idea list: $ideas")
     }
 
 }

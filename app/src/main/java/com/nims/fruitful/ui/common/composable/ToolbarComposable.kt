@@ -41,5 +41,5 @@ fun ActionToolbar(
 
 @Composable
 private fun toolbarColor(darkTheme: Boolean = isSystemInDarkTheme()): Color {
-    return if (darkTheme) MaterialTheme.colors.secondary else MaterialTheme.colors.primaryVariant
+    return if (darkTheme) MaterialTheme.colors.secondary else MaterialTheme.colors.primary
 }
