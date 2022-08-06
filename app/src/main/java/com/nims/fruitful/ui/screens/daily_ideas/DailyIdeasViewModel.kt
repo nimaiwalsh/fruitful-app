@@ -1,5 +1,6 @@
 package com.nims.fruitful.ui.screens.daily_ideas
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
 import com.nims.fruitful.data.service.AccountService
 import com.nims.fruitful.data.service.LogService
@@ -19,8 +20,9 @@ class DailyIdeasViewModel @Inject constructor(
     private val accountService: AccountService
 ) : MainViewModel(logService) {
 
-    var ideas = mutableListOf<Idea>()
+    var ideas = mutableStateListOf<Idea>()
         private set
+
 
     fun addListener() {
         viewModelScope.launch(showErrorExceptionHandler) {
@@ -66,9 +68,10 @@ class DailyIdeasViewModel @Inject constructor(
         if (wasDocumentDeleted) ideas.remove(idea) else updateIdeaInList(idea)
     }
 
-    private fun updateIdeaInList(task: Idea) {
-        val index = ideas.indexOfFirst { it.id == task.id }
-        if (index < 0) ideas.add(task) else ideas[index] = task
+    private fun updateIdeaInList(idea: Idea) {
+        val index = ideas.indexOfFirst { it.id == idea.id }
+        if (index < 0) ideas.add(idea) else ideas[index] = idea
+
         println("idea list: $ideas")
     }
 

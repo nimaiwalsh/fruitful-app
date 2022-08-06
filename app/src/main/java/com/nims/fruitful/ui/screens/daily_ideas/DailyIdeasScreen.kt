@@ -14,8 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.nims.fruitful.ui.common.composable.ActionToolbar
 import com.nims.fruitful.ui.common.ext.smallSpacer
 import com.nims.fruitful.ui.common.ext.toolbarActions
-import com.nims.fruitful.R.string as AppText
 import com.nims.fruitful.R.drawable as AppIcon
+import com.nims.fruitful.R.string as AppText
 
 @Composable
 @ExperimentalMaterialApi
@@ -45,6 +45,7 @@ fun DailyIdeasScreen(openScreen: (route: String) -> Unit, viewModel: DailyIdeasV
 private fun ScreenContent(openScreen: (route: String) -> Unit, viewModel: DailyIdeasViewModel) {
 
     val ideas = viewModel.ideas
+
     println("ideas: $ideas")
 
     Column(
