@@ -6,12 +6,12 @@ import com.nims.fruitful.model.Task
 interface StorageService {
     fun addListener(
         userId: String,
-        onDocumentEvent: (Boolean, Task) -> Unit,
+        onDocumentEvent: (Boolean, Idea) -> Unit,
         onError: (Throwable) -> Unit
     )
 
     fun removeListener()
-    fun getIdea(ideaId: String, onError: (Throwable) -> Unit, onSuccess: (Task) -> Unit)
+    fun getIdea(ideaId: String, onError: (Throwable) -> Unit, onSuccess: (Idea) -> Unit)
     fun saveIdea(idea: Idea, onResult: (Throwable?) -> Unit)
     fun deleteIdea(ideaId: String, onResult: (Throwable?) -> Unit)
     fun deleteAllForUser(userId: String, onResult: (Throwable?) -> Unit)

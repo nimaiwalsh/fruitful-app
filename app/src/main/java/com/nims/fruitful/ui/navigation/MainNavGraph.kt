@@ -34,7 +34,6 @@ fun NavGraphBuilder.fruitfulGraph(appState: MainAppState) {
         )
     }
 
-//
 //    composable(SETTINGS_SCREEN) {
 //        SettingsScreen(
 //            restartApp = { route -> appState.clearAndNavigate(route) },

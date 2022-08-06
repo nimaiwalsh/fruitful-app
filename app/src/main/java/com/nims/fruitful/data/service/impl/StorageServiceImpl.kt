@@ -7,7 +7,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.model.Idea
-import com.nims.fruitful.model.Task
 import javax.inject.Inject
 
 class StorageServiceImpl @Inject constructor() : StorageService {
@@ -15,7 +14,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
 
     override fun addListener(
         userId: String,
-        onDocumentEvent: (Boolean, Task) -> Unit,
+        onDocumentEvent: (Boolean, Idea) -> Unit,
         onError: (Throwable) -> Unit
     ) {
         val query = Firebase.firestore.collection(IDEA_COLLECTION).whereEqualTo(USER_ID, userId)
@@ -40,14 +39,14 @@ class StorageServiceImpl @Inject constructor() : StorageService {
     override fun getIdea(
         ideaId: String,
         onError: (Throwable) -> Unit,
-        onSuccess: (Task) -> Unit
+        onSuccess: (Idea) -> Unit
     ) {
         Firebase.firestore
             .collection(IDEA_COLLECTION)
             .document(ideaId)
             .get()
             .addOnFailureListener { error -> onError(error) }
-            .addOnSuccessListener { result -> onSuccess(result.toObject() ?: Task()) }
+            .addOnSuccessListener { result -> onSuccess(result.toObject() ?: Idea()) }
     }
 
     override fun saveIdea(idea: Idea, onResult: (Throwable?) -> Unit) {

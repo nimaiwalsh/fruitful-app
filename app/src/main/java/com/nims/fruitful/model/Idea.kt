@@ -6,5 +6,6 @@ data class Idea(
     val id: String = UUID.randomUUID().toString(),
     val title: String = "",
     val description: String = "",
+    val favourite: Boolean = false,
     val userId: String = ""
 )
