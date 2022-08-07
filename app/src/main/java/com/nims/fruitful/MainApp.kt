@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.nims.fruitful.ui.common.composable.BottomNavigationBar
 import com.nims.fruitful.ui.common.snackbar.SnackbarManager
 import com.nims.fruitful.ui.navigation.SPLASH_SCREEN
 import com.nims.fruitful.ui.navigation.fruitfulGraph
@@ -38,7 +39,10 @@ fun MainApp() {
                         }
                     )
                 },
-                scaffoldState = appState.scaffoldState
+                scaffoldState = appState.scaffoldState,
+                bottomBar = {
+                    BottomNavigationBar() {}
+                }
             ) { innerPaddingModifier ->
                 NavHost(
                     navController = appState.navController,

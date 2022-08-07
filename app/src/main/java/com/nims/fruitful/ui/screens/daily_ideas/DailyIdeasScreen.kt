@@ -11,6 +11,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.nims.fruitful.model.Idea
 import com.nims.fruitful.ui.common.composable.ActionToolbar
 import com.nims.fruitful.ui.common.ext.smallSpacer
 import com.nims.fruitful.ui.common.ext.toolbarActions
