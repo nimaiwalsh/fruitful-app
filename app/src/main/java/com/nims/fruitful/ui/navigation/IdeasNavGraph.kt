@@ -10,8 +10,14 @@ import com.nims.fruitful.ui.screens.edit_idea.EditIdeaScreen
 import com.nims.fruitful.ui.screens.login.LoginScreen
 import com.nims.fruitful.ui.screens.splash.SplashScreen
 
+object IdeasDestination : FruitfulNavigationDestination {
+    override val route = "ideas_route"
+    override val destination = "ideas_destination"
+}
+
+
 @ExperimentalMaterialApi
-fun NavGraphBuilder.fruitfulGraph(appState: MainAppState) {
+fun NavGraphBuilder.ideasGraph(appState: MainAppState) {
     composable(SPLASH_SCREEN) {
         SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }

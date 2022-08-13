@@ -28,4 +28,8 @@
     <string name="flag">Flag</string>
     <string name="priority">Priority</string>
 
+    <!-- Saved Ideas Screen -->
+    <string name="saved_ideas">Saved ideas</string>
+
+
 </resources>
