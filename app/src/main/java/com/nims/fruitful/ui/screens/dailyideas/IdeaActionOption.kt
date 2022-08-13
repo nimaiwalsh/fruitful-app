@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.daily_ideas
+package com.nims.fruitful.ui.screens.dailyideas
 
 enum class IdeaActionOption(val title: String) {
     EditIdea("Edit idea"),

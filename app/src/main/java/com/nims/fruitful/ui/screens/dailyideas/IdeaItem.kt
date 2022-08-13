@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.daily_ideas
+package com.nims.fruitful.ui.screens.dailyideas
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

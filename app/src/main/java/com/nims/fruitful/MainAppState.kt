@@ -13,7 +13,6 @@ import com.nims.fruitful.ui.navigation.FruitfulNavigationDestination
 import com.nims.fruitful.ui.navigation.IdeasDestination
 import com.nims.fruitful.ui.navigation.SavedIdeasDestination
 import com.nims.fruitful.ui.navigation.TopLevelDestination
-import com.nims.fruitful.ui.screens.saved_ideas.SavedIdeasScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch

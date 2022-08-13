@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.edit_idea
+package com.nims.fruitful.ui.screens.editidea
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.saved_ideas
+package com.nims.fruitful.ui.screens.savedideas
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text

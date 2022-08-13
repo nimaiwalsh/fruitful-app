@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.edit_idea
+package com.nims.fruitful.ui.screens.editidea
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope

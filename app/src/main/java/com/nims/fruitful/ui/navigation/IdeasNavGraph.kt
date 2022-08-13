@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.nims.fruitful.MainAppState
-import com.nims.fruitful.ui.screens.daily_ideas.DailyIdeasScreen
-import com.nims.fruitful.ui.screens.edit_idea.EditIdeaScreen
+import com.nims.fruitful.ui.screens.dailyideas.DailyIdeasScreen
+import com.nims.fruitful.ui.screens.editidea.EditIdeaScreen
 import com.nims.fruitful.ui.screens.login.LoginScreen
 import com.nims.fruitful.ui.screens.splash.SplashScreen
 

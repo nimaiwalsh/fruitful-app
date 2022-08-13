@@ -1,4 +1,4 @@
-package com.nims.fruitful.ui.screens.daily_ideas
+package com.nims.fruitful.ui.screens.dailyideas
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
