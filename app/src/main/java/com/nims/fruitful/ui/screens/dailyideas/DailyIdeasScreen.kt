@@ -19,19 +19,21 @@ import com.nims.fruitful.R.string as AppText
 
 @Composable
 @ExperimentalMaterialApi
-fun DailyIdeasScreen(openScreen: (route: String) -> Unit, viewModel: DailyIdeasViewModel = hiltViewModel()) {
-
+fun DailyIdeasScreen(
+    navigateToEditIdea: (String) -> Unit,
+    viewModel: DailyIdeasViewModel = hiltViewModel()
+) {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { viewModel.onAddClick(openScreen) },
+                onClick = { navigateToEditIdea("") },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 modifier = Modifier.padding(16.dp)
             ) { Icon(Icons.Filled.Add, "Add") }
         }
-    ) {
-        ScreenContent(openScreen, viewModel)
+    ) { padding ->
+        ScreenContent(modifier = Modifier.padding(padding), navigateToEditIdea, viewModel)
     }
 
     DisposableEffect(viewModel) {
@@ -42,12 +44,16 @@ fun DailyIdeasScreen(openScreen: (route: String) -> Unit, viewModel: DailyIdeasV
 
 @Composable
 @ExperimentalMaterialApi
-private fun ScreenContent(openScreen: (route: String) -> Unit, viewModel: DailyIdeasViewModel) {
+private fun ScreenContent(
+    modifier: Modifier,
+    navigateToEditIdea: (String) -> Unit,
+    viewModel: DailyIdeasViewModel
+) {
 
     val ideas = viewModel.ideas
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
@@ -65,7 +71,7 @@ private fun ScreenContent(openScreen: (route: String) -> Unit, viewModel: DailyI
                 IdeaItem(
                     idea = ideaItem,
                     onActionClick = { action ->
-                        viewModel.onIdeaActionClick(openScreen, ideaItem, action)
+                        viewModel.onIdeaActionClick(navigateToEditIdea, ideaItem, action)
                     }
                 )
             }

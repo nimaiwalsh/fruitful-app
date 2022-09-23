@@ -2,17 +2,20 @@ package com.nims.fruitful
 
 import android.content.res.Resources
 import androidx.compose.material.ScaffoldState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.nims.fruitful.ui.common.icon.FruitfulIcons
 import com.nims.fruitful.ui.common.icon.Icon.ImageVectorIcon
 import com.nims.fruitful.ui.common.snackbar.SnackbarManager
 import com.nims.fruitful.ui.common.snackbar.SnackbarMessage.Companion.toMessage
 import com.nims.fruitful.ui.navigation.FruitfulNavigationDestination
-import com.nims.fruitful.ui.navigation.IdeasDestination
-import com.nims.fruitful.ui.navigation.SavedIdeasDestination
 import com.nims.fruitful.ui.navigation.TopLevelDestination
+import com.nims.fruitful.ui.screens.dailyideas.navigation.IdeasDestination
+import com.nims.fruitful.ui.screens.savedideas.navigation.SavedIdeasDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -34,6 +37,9 @@ class MainAppState(
         }
     }
 
+    val currentDestination: NavDestination?
+    @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+
     /**
      * Top level destinations to be used in the BottomBar and NavRail
      */
@@ -54,30 +60,6 @@ class MainAppState(
         ),
     )
 
-    fun popUp() {
-        navController.popBackStack()
-    }
-
-    fun navigate(route: String) {
-        navController.navigate(route) {
-            launchSingleTop = true
-        }
-    }
-
-    fun navigateAndPopUp(route: String, popUp: String) {
-        navController.navigate(route) {
-            launchSingleTop = true
-            popUpTo(popUp) { inclusive = true }
-        }
-    }
-
-    fun clearAndNavigate(route: String) {
-        navController.navigate(route) {
-            launchSingleTop = true
-            popUpTo(0) { inclusive = true }
-        }
-    }
-
     /**
      * UI logic for navigating to a particular destination in the app. The NavigationOptions to
      * navigate with are based on the type of destination, which could be a top level destination or
@@ -88,7 +70,7 @@ class MainAppState(
      * Regular destinations can have multiple copies in the back stack and state isn't saved nor
      * restored.
      *
-     * @param destination: The [NiaNavigationDestination] the app needs to navigate to.
+     * @param destination: The [FruitfulNavigationDestination] the app needs to navigate to.
      * @param route: Optional route to navigate to in case the destination contains arguments.
      */
     fun navigate(destination: FruitfulNavigationDestination, route: String? = null) {
@@ -109,5 +91,9 @@ class MainAppState(
         } else {
             navController.navigate(route ?: destination.route)
         }
+    }
+
+    fun onBackClick() {
+        navController.popBackStack()
     }
 }

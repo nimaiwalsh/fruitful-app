@@ -8,8 +8,6 @@ import com.nims.fruitful.data.service.LogService
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.ui.common.ext.isValidEmail
 import com.nims.fruitful.ui.common.snackbar.SnackbarManager
-import com.nims.fruitful.ui.navigation.LOGIN_SCREEN
-import com.nims.fruitful.ui.navigation.SETTINGS_SCREEN
 import com.nims.fruitful.ui.screens.MainViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,7 +34,7 @@ class LoginViewModel @Inject constructor(
         uiState.value = uiState.value.copy(password = newValue)
     }
 
-    fun onSignInClick(openAndPopUp: (String, String) -> Unit) {
+    fun onSignInClick(openAndPopUp: (String) -> Unit) {
         if (!email.isValidEmail()) {
             SnackbarManager.showMessage(AppText.email_error)
             return
@@ -65,14 +63,14 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun updateUserId(openAndPopUp: (String, String) -> Unit) {
+    private fun updateUserId(openAndPopUp: (String) -> Unit) {
         viewModelScope.launch(showErrorExceptionHandler) {
             val oldUserId = accountService.getAnonymousUserId()
             val newUserId = accountService.getUserId()
 
             storageService.updateUserId(oldUserId, newUserId) { error ->
                 if (error != null) logService.logNonFatalCrash(error)
-                else openAndPopUp(SETTINGS_SCREEN, LOGIN_SCREEN)
+                else openAndPopUp("")
             }
         }
     }

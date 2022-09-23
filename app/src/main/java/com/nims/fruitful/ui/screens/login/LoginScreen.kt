@@ -35,7 +35,7 @@ fun LoginScreen(openAndPopUp: (String, String) -> Unit, viewModel: LoginViewMode
         PasswordField(uiState.password, viewModel::onPasswordChange, Modifier.fieldModifier())
 
         BasicButton(AppText.sign_in, Modifier.basicButton()) {
-            viewModel.onSignInClick(openAndPopUp)
+            viewModel.onSignInClick({ })
         }
 
         BasicTextButton(AppText.forgot_password, Modifier.textButton()) {

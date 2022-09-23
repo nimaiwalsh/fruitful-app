@@ -22,7 +22,11 @@ import com.nims.fruitful.R.drawable as AppIcon
 import com.nims.fruitful.R.string as AppText
 
 @Composable
-fun EditIdeaScreen(popUpScreen: () -> Unit, ideaId: String, viewModel: EditIdeaViewModel = hiltViewModel()) {
+fun EditIdeaScreen(
+    popUpScreen: () -> Unit,
+    ideaId: String,
+    viewModel: EditIdeaViewModel = hiltViewModel()
+) {
     val idea by viewModel.idea
 
     Log.d("Navigated to EditIdeaScreen with argument", ideaId)

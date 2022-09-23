@@ -20,7 +20,7 @@ private const val SPLASH_TIMEOUT = 1000L
 
 @Composable
 fun SplashScreen(
-    openAndPopUp: (String, String) -> Unit,
+    navigateToIdeas: () -> Unit,
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     Column(
@@ -37,6 +37,6 @@ fun SplashScreen(
 
     LaunchedEffect(true) {
         delay(SPLASH_TIMEOUT)
-        viewModel.onAppStart(openAndPopUp)
+        viewModel.onAppStart(navigateToIdeas)
     }
 }

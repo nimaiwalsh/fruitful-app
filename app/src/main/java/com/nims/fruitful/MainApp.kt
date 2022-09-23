@@ -30,15 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.nims.fruitful.ui.common.composable.FruitfulNavigationBar
 import com.nims.fruitful.ui.common.composable.FruitfulNavigationBarItem
 import com.nims.fruitful.ui.common.icon.Icon
 import com.nims.fruitful.ui.common.snackbar.SnackbarManager
-import com.nims.fruitful.ui.navigation.SPLASH_SCREEN
+import com.nims.fruitful.ui.navigation.FruitfulNavHost
 import com.nims.fruitful.ui.navigation.TopLevelDestination
-import com.nims.fruitful.ui.navigation.ideasGraph
 import com.nims.fruitful.ui.theme.FruitfulTheme
 import kotlinx.coroutines.CoroutineScope
 import androidx.compose.material3.MaterialTheme as MaterialTheme3
@@ -65,15 +63,17 @@ fun MainApp() {
                 bottomBar = {
                     BottomBar(
                         destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = {},
-                        currentDestination = null)
+                        onNavigateToDestination = appState::navigate,
+                        currentDestination = appState.currentDestination
+                    )
                 }
             ) { innerPaddingModifier ->
-                NavHost(
+                FruitfulNavHost(
                     navController = appState.navController,
-                    startDestination = SPLASH_SCREEN,
+                    onNavigateToDestination = appState::navigate,
+                    onBackClick = appState::onBackClick,
                     modifier = Modifier.padding(innerPaddingModifier)
-                ) { ideasGraph(appState) }
+                )
             }
         }
     }
@@ -100,7 +100,7 @@ fun resources(): Resources {
 @Composable
 private fun BottomBar(
     destinations: List<TopLevelDestination>,
-    onNavigateToDestination: () -> Unit,
+    onNavigateToDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?
 ) {
     // Wrap the navigation bar in a surface so the color behind the system
@@ -118,7 +118,9 @@ private fun BottomBar(
                     currentDestination?.hierarchy?.any { it.route == destination.route } == true
                 FruitfulNavigationBarItem(
                     selected = true,
-                    onClick = { },
+                    onClick = {
+                        onNavigateToDestination(destination)
+                    },
                     icon = {
                         val icon = if (selected) {
                             destination.selectedIcon

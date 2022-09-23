@@ -1,8 +1,9 @@
-package com.nims.fruitful.ui.navigation
+package com.nims.fruitful.ui.screens.savedideas.navigation
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.nims.fruitful.ui.navigation.FruitfulNavigationDestination
 import com.nims.fruitful.ui.screens.savedideas.SavedIdeasScreen
 
 object SavedIdeasDestination : FruitfulNavigationDestination {
@@ -12,7 +13,7 @@ object SavedIdeasDestination : FruitfulNavigationDestination {
 
 @OptIn(ExperimentalMaterialApi::class)
 fun NavGraphBuilder.savedIdeasGraph() {
-    composable(SAVED_IDEAS_SCREEN) {
+    composable(route = SavedIdeasDestination.route) {
         SavedIdeasScreen()
     }
 }

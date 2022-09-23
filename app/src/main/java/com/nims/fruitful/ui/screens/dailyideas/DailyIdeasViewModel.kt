@@ -6,8 +6,6 @@ import com.nims.fruitful.data.service.AccountService
 import com.nims.fruitful.data.service.LogService
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.model.Idea
-import com.nims.fruitful.ui.navigation.EDIT_IDEA_SCREEN
-import com.nims.fruitful.ui.navigation.IDEA_ID
 import com.nims.fruitful.ui.screens.MainViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,11 +32,9 @@ class DailyIdeasViewModel @Inject constructor(
         viewModelScope.launch(showErrorExceptionHandler) { storageService.removeListener() }
     }
 
-    fun onAddClick(openScreen: (String) -> Unit) = openScreen(EDIT_IDEA_SCREEN)
-
-    fun onIdeaActionClick(openScreen: (String) -> Unit, idea: Idea, action: String) {
+    fun onIdeaActionClick(navigateToEditIdea: (String) -> Unit, idea: Idea, action: String) {
         when (IdeaActionOption.getByTitle(action)) {
-            IdeaActionOption.EditIdea -> openScreen("$EDIT_IDEA_SCREEN?$IDEA_ID={${idea.id}}")
+            IdeaActionOption.EditIdea -> navigateToEditIdea(idea.id)
             IdeaActionOption.ToggleFavourite -> onFavouriteIdeaClick(idea)
             IdeaActionOption.DeleteIdea -> onDeleteTaskClick(idea)
         }
