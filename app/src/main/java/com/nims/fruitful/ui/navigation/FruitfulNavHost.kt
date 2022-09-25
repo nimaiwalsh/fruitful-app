@@ -20,7 +20,7 @@ fun FruitfulNavHost(
     navController: NavHostController,
     onNavigateToDestination: (FruitfulNavigationDestination, String?) -> Unit,
     onBackClick: () -> Unit,
-    startDestination: String = SplashScreenDestination.route,
+    startDestination: String = IdeasDestination.route,
 ) {
     NavHost(
         navController = navController,

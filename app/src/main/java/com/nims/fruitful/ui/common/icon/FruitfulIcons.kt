@@ -2,53 +2,20 @@ package com.nims.fruitful.ui.common.icon
 
 import androidx.annotation.DrawableRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ArrowDropDown
-import androidx.compose.material.icons.rounded.ArrowDropUp
-import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.ExpandLess
-import androidx.compose.material.icons.rounded.Fullscreen
-import androidx.compose.material.icons.rounded.Grid3x3
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.ShortText
+import androidx.compose.material.icons.outlined.Lightbulb
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.Star
-import androidx.compose.material.icons.rounded.Tag
-import androidx.compose.material.icons.rounded.ViewDay
-import androidx.compose.material.icons.rounded.VolumeOff
-import androidx.compose.material.icons.rounded.VolumeUp
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
  * Now in Android icons. Material icons are [ImageVector]s, custom icons are drawable resource IDs.
  */
 object FruitfulIcons {
-    val AccountCircle = Icons.Outlined.AccountCircle
-    val Add = Icons.Rounded.Add
-    val ArrowBack = Icons.Rounded.ArrowBack
-    val ArrowDropDown = Icons.Rounded.ArrowDropDown
-    val ArrowDropUp = Icons.Rounded.ArrowDropUp
-    val Check = Icons.Rounded.Check
-    val Close = Icons.Rounded.Close
-    val ExpandLess = Icons.Rounded.ExpandLess
-    val Fullscreen = Icons.Rounded.Fullscreen
-    val Grid3x3 = Icons.Rounded.Grid3x3
-    val MoreVert = Icons.Default.MoreVert
-    val Person = Icons.Rounded.Person
-    val PlayArrow = Icons.Rounded.PlayArrow
-    val Search = Icons.Rounded.Search
-    val ShortText = Icons.Rounded.ShortText
     val Star = Icons.Rounded.Star
-    val Tag = Icons.Rounded.Tag
-    val ViewDay = Icons.Rounded.ViewDay
-    val VolumeOff = Icons.Rounded.VolumeOff
-    val VolumeUp = Icons.Rounded.VolumeUp
-//    val Bookmark = R.drawable.ic_bookmark
+    val StarBorder = Icons.Outlined.StarBorder
+    val Light = Icons.Rounded.Lightbulb
+    val LightBorder = Icons.Outlined.Lightbulb
 }
 
 /**

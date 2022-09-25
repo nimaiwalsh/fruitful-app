@@ -1,6 +1,5 @@
 package com.nims.fruitful
 
-import android.content.res.Resources
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.only
@@ -10,35 +9,24 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Surface
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.nims.fruitful.ui.common.composable.FruitfulNavigationBar
 import com.nims.fruitful.ui.common.composable.FruitfulNavigationBarItem
 import com.nims.fruitful.ui.common.icon.Icon
-import com.nims.fruitful.ui.common.snackbar.SnackbarManager
 import com.nims.fruitful.ui.navigation.FruitfulNavHost
 import com.nims.fruitful.ui.navigation.TopLevelDestination
 import com.nims.fruitful.ui.theme.FruitfulTheme
-import kotlinx.coroutines.CoroutineScope
 import androidx.compose.material3.MaterialTheme as MaterialTheme3
 
 @Composable
@@ -80,24 +68,6 @@ fun MainApp() {
 }
 
 @Composable
-fun rememberAppState(
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
-    navController: NavHostController = rememberNavController(),
-    snackbarManager: SnackbarManager = SnackbarManager,
-    resources: Resources = resources(),
-    coroutineScope: CoroutineScope = rememberCoroutineScope()
-) = remember(scaffoldState, navController, snackbarManager, resources, coroutineScope) {
-    MainAppState(scaffoldState, navController, snackbarManager, resources, coroutineScope)
-}
-
-@Composable
-@ReadOnlyComposable
-fun resources(): Resources {
-    LocalConfiguration.current
-    return LocalContext.current.resources
-}
-
-@Composable
 private fun BottomBar(
     destinations: List<TopLevelDestination>,
     onNavigateToDestination: (TopLevelDestination) -> Unit,
@@ -117,7 +87,7 @@ private fun BottomBar(
                 val selected =
                     currentDestination?.hierarchy?.any { it.route == destination.route } == true
                 FruitfulNavigationBarItem(
-                    selected = true,
+                    selected = selected,
                     onClick = {
                         onNavigateToDestination(destination)
                     },
