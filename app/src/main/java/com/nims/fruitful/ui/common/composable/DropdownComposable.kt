@@ -4,18 +4,34 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.*
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@ExperimentalMaterialApi
-fun DropdownContextMenu(options: List<String>, modifier: Modifier, onActionClick: (String) -> Unit) {
+fun DropdownContextMenu(
+    options: List<String>,
+    modifier: Modifier,
+    onActionClick: (String) -> Unit
+) {
     var isExpanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
@@ -36,20 +52,19 @@ fun DropdownContextMenu(options: List<String>, modifier: Modifier, onActionClick
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(
+                    text = { Text(text = selectionOption) },
                     onClick = {
                         isExpanded = false
                         onActionClick(selectionOption)
                     }
-                ) {
-                    Text(text = selectionOption)
-                }
+                )
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@ExperimentalMaterialApi
 fun DropdownSelector(
     @StringRes label: Int,
     options: List<String>,
@@ -80,26 +95,25 @@ fun DropdownSelector(
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(
+                    text = { Text(text = selectionOption) },
                     onClick = {
                         onNewValue(selectionOption)
                         isExpanded = false
                     }
-                ) { Text(text = selectionOption) }
+                )
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@ExperimentalMaterialApi
 private fun dropdownColors(): TextFieldColors {
     return ExposedDropdownMenuDefaults.textFieldColors(
-        backgroundColor = MaterialTheme.colors.onPrimary,
         focusedIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor =  Color.Transparent,
-        trailingIconColor = MaterialTheme.colors.onSurface,
-        focusedTrailingIconColor = MaterialTheme.colors.onSurface,
-        focusedLabelColor = MaterialTheme.colors.primary,
-        unfocusedLabelColor = MaterialTheme.colors.primary
+        unfocusedIndicatorColor = Color.Transparent,
+        focusedTrailingIconColor = MaterialTheme.colorScheme.onSurface,
+        focusedLabelColor = MaterialTheme.colorScheme.primary,
+        unfocusedLabelColor = MaterialTheme.colorScheme.primary
     )
 }

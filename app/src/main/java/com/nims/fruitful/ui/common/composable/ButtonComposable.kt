@@ -1,7 +1,9 @@
 package com.nims.fruitful.ui.common.composable
 
 import androidx.annotation.StringRes
-import androidx.compose.material.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,10 +21,6 @@ fun BasicButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
     Button(
         onClick = action,
         modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = MaterialTheme.colors.primary,
-            contentColor = MaterialTheme.colors.onPrimary
-        )
     ) {
         Text(text = stringResource(text), fontSize = 16.sp)
     }

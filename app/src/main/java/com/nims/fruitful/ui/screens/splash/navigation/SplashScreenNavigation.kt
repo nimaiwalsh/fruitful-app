@@ -1,6 +1,5 @@
 package com.nims.fruitful.ui.screens.splash.navigation
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.nims.fruitful.ui.navigation.FruitfulNavigationDestination
@@ -11,7 +10,6 @@ object SplashScreenDestination : FruitfulNavigationDestination {
     override val destination = "splash_destination"
 }
 
-@ExperimentalMaterialApi
 fun NavGraphBuilder.splashGraph(
     onNavigateToIdeas: () -> Unit
 ) {

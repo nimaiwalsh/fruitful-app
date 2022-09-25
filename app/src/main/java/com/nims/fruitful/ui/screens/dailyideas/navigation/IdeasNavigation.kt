@@ -1,6 +1,5 @@
 package com.nims.fruitful.ui.screens.dailyideas.navigation
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -12,7 +11,6 @@ object IdeasDestination : FruitfulNavigationDestination {
     override val destination = "ideas_destination"
 }
 
-@ExperimentalMaterialApi
 fun NavGraphBuilder.ideasGraph(
     navigateToEditIdea: (String) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,

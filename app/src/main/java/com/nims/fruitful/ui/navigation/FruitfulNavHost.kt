@@ -1,6 +1,5 @@
 package com.nims.fruitful.ui.navigation
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,10 +9,8 @@ import com.nims.fruitful.ui.screens.dailyideas.navigation.ideasGraph
 import com.nims.fruitful.ui.screens.editidea.navigation.EditIdeaDestination
 import com.nims.fruitful.ui.screens.editidea.navigation.editIdeaGraph
 import com.nims.fruitful.ui.screens.savedideas.navigation.savedIdeasGraph
-import com.nims.fruitful.ui.screens.splash.navigation.SplashScreenDestination
 import com.nims.fruitful.ui.screens.splash.navigation.splashGraph
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FruitfulNavHost(
     modifier: Modifier = Modifier,

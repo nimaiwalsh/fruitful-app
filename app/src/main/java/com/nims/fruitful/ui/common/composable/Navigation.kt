@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
- * Now in Android navigation bar with content slot. Wraps Material 3 [FruitfulNavigationBar].
+ * Navigation bar with content slot. Wraps Material 3 [FruitfulNavigationBar].
  *
  * @param modifier Modifier to be applied to the navigation bar.
  * @param content Destinations inside the navigation bar. This should contain multiple

@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.Surface
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,25 +29,27 @@ import com.nims.fruitful.ui.navigation.TopLevelDestination
 import com.nims.fruitful.ui.theme.FruitfulTheme
 import androidx.compose.material3.MaterialTheme as MaterialTheme3
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@ExperimentalMaterialApi
 fun MainApp() {
     FruitfulTheme {
-        Surface(color = MaterialTheme.colors.background) {
+        Surface {
 
             val appState = rememberAppState()
 
             Scaffold(
                 snackbarHost = {
                     SnackbarHost(
-                        hostState = it,
+                        hostState = appState.snackbarHostState,
                         modifier = Modifier.padding(8.dp),
                         snackbar = { snackbarData ->
-                            Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
+                            Snackbar(
+                                snackbarData,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            )
                         }
                     )
                 },
-                scaffoldState = appState.scaffoldState,
                 bottomBar = {
                     BottomBar(
                         destinations = appState.topLevelDestinations,

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Allows us to override platform level specific attributes in their
-       respective values-vXX folder. -->
-    <style name="Platform.Theme.Fruitful" parent="Theme.Material3.DayNight">
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-    </style>
-
     <!-- The actual theme we use. This varies for light theme (here),
-      and values-night for dark theme. -->
+        and values-night for dark theme. -->
     <style name="Theme.Fruitful" parent="Platform.Theme.Fruitful">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_500</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <!-- HANDLED BY COMPOSE THEME -->
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Allows us to override platform level specific attributes in their
+       respective values-vXX folder. -->
+    <style name="Platform.Theme.Fruitful" parent="Theme.Material3.DayNight.NoActionBar">
     </style>
 
     <style name="Theme.Fruitful.NoActionBar">
@@ -22,7 +19,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Fruitful.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="Theme.Fruitful.AppBarOverlay" parent="ThemeOverlay.Material3.Dark.ActionBar" />
 
-    <style name="Theme.Fruitful.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="Theme.Fruitful.PopupOverlay" parent="ThemeOverlay.Material3.Light" />
 </resources>

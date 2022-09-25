@@ -1,8 +1,7 @@
 package com.nims.fruitful
 
 import android.content.res.Resources
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.Stable
@@ -29,13 +28,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun rememberAppState(
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
+    snackbarHostState: SnackbarHostState = SnackbarHostState(),
     navController: NavHostController = rememberNavController(),
     snackbarManager: SnackbarManager = SnackbarManager,
     resources: Resources = resources(),
     coroutineScope: CoroutineScope = rememberCoroutineScope()
-) = remember(scaffoldState, navController, snackbarManager, resources, coroutineScope) {
-    MainAppState(scaffoldState, navController, snackbarManager, resources, coroutineScope)
+) = remember(navController, snackbarManager, resources, coroutineScope) {
+    MainAppState(snackbarHostState, navController, snackbarManager, resources, coroutineScope)
 }
 
 @Composable
@@ -47,7 +46,7 @@ fun resources(): Resources {
 
 @Stable
 class MainAppState(
-    val scaffoldState: ScaffoldState,
+    val snackbarHostState: SnackbarHostState,
     val navController: NavHostController,
     private val snackbarManager: SnackbarManager,
     private val resources: Resources,
@@ -57,7 +56,7 @@ class MainAppState(
         coroutineScope.launch {
             snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
                 val text = snackbarMessage.toMessage(resources)
-                scaffoldState.snackbarHostState.showSnackbar(text)
+                snackbarHostState.showSnackbar(text)
             }
         }
     }

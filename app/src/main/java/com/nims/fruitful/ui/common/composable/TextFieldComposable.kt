@@ -2,13 +2,14 @@ package com.nims.fruitful.ui.common.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.nims.fruitful.R.string as AppText
 import com.nims.fruitful.R.drawable as AppIcon
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicField(
     @StringRes text: Int,
@@ -35,6 +37,7 @@ fun BasicField(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmailField(value: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
     OutlinedTextField(
@@ -52,6 +55,7 @@ fun PasswordField(value: String, onNewValue: (String) -> Unit, modifier: Modifie
     PasswordField(value, AppText.password, onNewValue, modifier)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PasswordField(
     value: String,

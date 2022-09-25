@@ -8,9 +8,7 @@ import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
-/**
- * Now in Android icons. Material icons are [ImageVector]s, custom icons are drawable resource IDs.
- */
+/** Material icons are [ImageVector]s, custom icons are drawable resource IDs. */
 object FruitfulIcons {
     val Star = Icons.Rounded.Star
     val StarBorder = Icons.Outlined.StarBorder
@@ -18,9 +16,7 @@ object FruitfulIcons {
     val LightBorder = Icons.Outlined.Lightbulb
 }
 
-/**
- * A sealed class to make dealing with [ImageVector] and [DrawableRes] icons easier.
- */
+/** A sealed class to make dealing with [ImageVector] and [DrawableRes] icons easier. */
 sealed class Icon {
     data class ImageVectorIcon(val imageVector: ImageVector) : Icon()
     data class DrawableResourceIcon(@DrawableRes val id: Int) : Icon()
