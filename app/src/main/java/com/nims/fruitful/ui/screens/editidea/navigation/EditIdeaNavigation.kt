@@ -42,7 +42,7 @@ fun NavGraphBuilder.editIdeaGraph(
         )
     ) {
         EditIdeaScreen(
-            popUpScreen = { },
+            navigateBack = { onBackClick() },
             ideaId = it.arguments?.getString(EditIdeaDestination.IDEA_ID_ARG)
                 ?: EditIdeaDestination.IDEA_DEFAULT_ID
         )

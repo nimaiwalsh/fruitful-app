@@ -29,12 +29,12 @@ class EditIdeaViewModel @Inject constructor(
         idea.value = idea.value.copy(description = newValue)
     }
 
-    fun onDoneClick(popUpScreen: () -> Unit) {
+    fun onDoneClick(navigateBack: () -> Unit) {
         viewModelScope.launch(showErrorExceptionHandler) {
             val editedIdea = idea.value.copy(userId = accountService.getUserId())
 
             storageService.saveIdea(editedIdea) { error ->
-                if (error == null) popUpScreen() else onError(error)
+                if (error == null) navigateBack() else onError(error)
             }
         }
     }

@@ -23,7 +23,7 @@ import com.nims.fruitful.R.string as AppText
 
 @Composable
 fun EditIdeaScreen(
-    popUpScreen: () -> Unit,
+    navigateBack: () -> Unit,
     ideaId: String,
     viewModel: EditIdeaViewModel = hiltViewModel()
 ) {
@@ -42,7 +42,7 @@ fun EditIdeaScreen(
             title = AppText.edit_idea,
             modifier = Modifier.toolbarActions(),
             endActionIcon = AppIcon.ic_check,
-            endAction = { viewModel.onDoneClick(popUpScreen) }
+            endAction = { viewModel.onDoneClick(navigateBack) }
         )
 
         Spacer(modifier = Modifier.spacer())
