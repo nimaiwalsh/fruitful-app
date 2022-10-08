@@ -74,6 +74,7 @@ private fun ScreenContent(
 
         LazyColumn {
             items(ideas, key = { it.id }) { ideaItem ->
+
                 IdeaItem(
                     idea = ideaItem,
                     onActionClick = { action ->
