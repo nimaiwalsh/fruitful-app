@@ -1,7 +1,6 @@
 package com.nims.fruitful.data.service
 
 import com.nims.fruitful.model.Idea
-import com.nims.fruitful.model.Task
 
 interface StorageService {
     fun addListener(
