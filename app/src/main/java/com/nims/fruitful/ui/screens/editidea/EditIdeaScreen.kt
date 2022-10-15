@@ -1,6 +1,5 @@
 package com.nims.fruitful.ui.screens.editidea
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -8,7 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,6 +20,7 @@ import com.nims.fruitful.ui.common.composable.BasicField
 import com.nims.fruitful.ui.common.ext.fieldModifier
 import com.nims.fruitful.ui.common.ext.spacer
 import com.nims.fruitful.ui.common.ext.toolbarActions
+import com.nims.fruitful.ui.screens.editidea.navigation.EditIdeaDestination
 import com.nims.fruitful.R.drawable as AppIcon
 import com.nims.fruitful.R.string as AppText
 
@@ -27,9 +30,21 @@ fun EditIdeaScreen(
     ideaId: String,
     viewModel: EditIdeaViewModel = hiltViewModel()
 ) {
-    val idea by viewModel.idea
+    val uiState by viewModel.uiState
 
-    Log.d("Navigated to EditIdeaScreen with argument", ideaId)
+    val title: Int by remember {
+        derivedStateOf {
+            if (ideaId == EditIdeaDestination.IDEA_DEFAULT_ID) {
+                AppText.create_idea_title
+            } else {
+                AppText.edit_idea_title
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.initialize(ideaId)
+    }
 
     Column(
         modifier = Modifier
@@ -39,14 +54,14 @@ fun EditIdeaScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ActionToolbar(
-            title = AppText.edit_idea,
+            title = title,
             modifier = Modifier.toolbarActions(),
             endActionIcon = AppIcon.ic_check,
             endAction = { viewModel.onDoneClick(navigateBack) }
         )
 
         Spacer(modifier = Modifier.spacer())
-        BasicFields(idea, viewModel)
+        BasicFields(uiState.idea, viewModel)
         Spacer(modifier = Modifier.spacer())
     }
 

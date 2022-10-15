@@ -19,7 +19,8 @@
     <string name="ideas">Ideas</string>
 
     <!-- EditIdeaScreen -->
-    <string name="edit_idea">Edit your idea</string>
+    <string name="edit_idea_title">Edit your idea</string>
+    <string name="create_idea_title">Create your idea</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="url">URL</string>

@@ -7,6 +7,7 @@ import com.nims.fruitful.data.service.LogService
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.model.Idea
 import com.nims.fruitful.ui.screens.MainViewModel
+import com.nims.fruitful.ui.screens.editidea.navigation.EditIdeaDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,24 +19,40 @@ class EditIdeaViewModel @Inject constructor(
     private val accountService: AccountService
 ) : MainViewModel(logService) {
 
-    var idea = mutableStateOf(Idea())
+    var uiState = mutableStateOf(EditIdeaUiState(Idea()))
         private set
 
+    fun initialize(ideaId: String) {
+        viewModelScope.launch {
+            // Only fetch an idea if it has a real id,
+            // if it is using a default id we are creating a new idea.
+            if (ideaId != EditIdeaDestination.IDEA_DEFAULT_ID) {
+                storageService.getIdea(ideaId, ::onError) {
+                    uiState.value = EditIdeaUiState(idea = it)
+                }
+            }
+        }
+    }
+
     fun onTitleChange(newValue: String) {
-        idea.value = idea.value.copy(title = newValue)
+        uiState.value = uiState.value.copy(idea = uiState.value.idea.copy(title = newValue))
     }
 
     fun onDescriptionChange(newValue: String) {
-        idea.value = idea.value.copy(description = newValue)
+        uiState.value = uiState.value.copy(idea = uiState.value.idea.copy(description = newValue))
     }
 
     fun onDoneClick(navigateBack: () -> Unit) {
         viewModelScope.launch(showErrorExceptionHandler) {
-            val editedIdea = idea.value.copy(userId = accountService.getUserId())
+            val editedIdea = uiState.value.idea.copy(userId = accountService.getUserId())
 
             storageService.saveIdea(editedIdea) { error ->
                 if (error == null) navigateBack() else onError(error)
             }
         }
     }
+
+    data class EditIdeaUiState(
+        val idea: Idea
+    )
 }

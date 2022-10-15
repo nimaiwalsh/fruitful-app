@@ -10,6 +10,7 @@ import com.nims.fruitful.ui.navigation.FruitfulNavigationDestination
 import com.nims.fruitful.ui.screens.editidea.EditIdeaScreen
 
 object EditIdeaDestination : FruitfulNavigationDestination {
+    // If an idea has not been created in the database and assigned an id.
     const val IDEA_DEFAULT_ID = "-1"
     const val IDEA_ID_ARG = "ideaId"
     override val route = "editidea_route/{$IDEA_ID_ARG}"
