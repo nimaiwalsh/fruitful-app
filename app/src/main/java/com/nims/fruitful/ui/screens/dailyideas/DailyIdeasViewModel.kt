@@ -3,6 +3,7 @@ package com.nims.fruitful.ui.screens.dailyideas
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
 import com.nims.fruitful.data.service.AccountService
+import com.nims.fruitful.data.service.DataResult
 import com.nims.fruitful.data.service.LogService
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.model.Idea
@@ -45,8 +46,9 @@ class DailyIdeasViewModel @Inject constructor(
         viewModelScope.launch(showErrorExceptionHandler) {
             val updatedIdea = idea.copy(favourite = !idea.favourite)
 
-            storageService.saveIdea(updatedIdea) { error ->
-                if (error != null) onError(error)
+            when (val result = storageService.saveIdea(updatedIdea)) {
+                is DataResult.Failure -> onError(result.error)
+                is DataResult.Success -> {}
             }
         }
     }

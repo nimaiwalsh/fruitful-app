@@ -3,6 +3,7 @@ package com.nims.fruitful.ui.screens.editidea
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.nims.fruitful.data.service.AccountService
+import com.nims.fruitful.data.service.DataResult
 import com.nims.fruitful.data.service.LogService
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.model.Idea
@@ -27,8 +28,9 @@ class EditIdeaViewModel @Inject constructor(
             // Only fetch an idea if it has a real id,
             // if it is using a default id we are creating a new idea.
             if (ideaId != EditIdeaDestination.IDEA_DEFAULT_ID) {
-                storageService.getIdea(ideaId, ::onError) {
-                    uiState.value = EditIdeaUiState(idea = it)
+                when (val result = storageService.getIdea(ideaId)) {
+                    is DataResult.Success -> uiState.value = EditIdeaUiState(idea = result.data)
+                    is DataResult.Failure -> onError(result.error)
                 }
             }
         }
@@ -46,8 +48,9 @@ class EditIdeaViewModel @Inject constructor(
         viewModelScope.launch(showErrorExceptionHandler) {
             val editedIdea = uiState.value.idea.copy(userId = accountService.getUserId())
 
-            storageService.saveIdea(editedIdea) { error ->
-                if (error == null) navigateBack() else onError(error)
+            when (val result = storageService.saveIdea(editedIdea)) {
+                is DataResult.Failure -> onError(result.error)
+                is DataResult.Success -> navigateBack()
             }
         }
     }

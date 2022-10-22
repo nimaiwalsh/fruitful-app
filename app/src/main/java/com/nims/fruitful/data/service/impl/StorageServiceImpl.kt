@@ -5,8 +5,10 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.nims.fruitful.data.service.DataResult
 import com.nims.fruitful.data.service.StorageService
 import com.nims.fruitful.model.Idea
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class StorageServiceImpl @Inject constructor() : StorageService {
@@ -17,6 +19,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
         onDocumentEvent: (Boolean, Idea) -> Unit,
         onError: (Throwable) -> Unit
     ) {
+
         val query = Firebase.firestore.collection(IDEA_COLLECTION).whereEqualTo(USER_ID, userId)
 
         listenerRegistration = query.addSnapshotListener { value, error ->
@@ -36,25 +39,30 @@ class StorageServiceImpl @Inject constructor() : StorageService {
         listenerRegistration?.remove()
     }
 
-    override fun getIdea(
-        ideaId: String,
-        onError: (Throwable) -> Unit,
-        onSuccess: (Idea) -> Unit
-    ) {
-        Firebase.firestore
-            .collection(IDEA_COLLECTION)
-            .document(ideaId)
-            .get()
-            .addOnFailureListener { error -> onError(error) }
-            .addOnSuccessListener { result -> onSuccess(result.toObject() ?: Idea()) }
+    override suspend fun getIdea(ideaId: String): DataResult<Idea> {
+        return try {
+            val result = Firebase.firestore
+                .collection(IDEA_COLLECTION)
+                .document(ideaId)
+                .get()
+                .await()
+            DataResult.Success(result.toObject<Idea>() ?: Idea())
+        } catch (e: Exception) {
+            DataResult.Failure(e)
+        }
     }
 
-    override fun saveIdea(idea: Idea, onResult: (Throwable?) -> Unit) {
-        Firebase.firestore
-            .collection(IDEA_COLLECTION)
-            .document(idea.id)
-            .set(idea)
-            .addOnCompleteListener { onResult(it.exception) }
+    override suspend fun saveIdea(idea: Idea): DataResult<Unit> {
+        return try {
+            Firebase.firestore
+                .collection(IDEA_COLLECTION)
+                .document(idea.id)
+                .set(idea)
+                .await()
+            DataResult.Success(Unit)
+        } catch (e: Exception) {
+            DataResult.Failure(e)
+        }
     }
 
     override fun deleteIdea(ideaId: String, onResult: (Throwable?) -> Unit) {
