@@ -8,4 +8,7 @@ data class Idea(
     val description: String = "",
     val favourite: Boolean = false,
     val userId: String = ""
-)
+) {
+    /** Used to update ui if the idea has been removed from database */
+    var isRemoved = false
+}

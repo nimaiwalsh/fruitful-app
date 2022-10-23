@@ -1,15 +1,11 @@
 package com.nims.fruitful.data.service
 
 import com.nims.fruitful.model.Idea
+import kotlinx.coroutines.flow.Flow
 
 interface StorageService {
-    fun addListener(
-        userId: String,
-        onDocumentEvent: (Boolean, Idea) -> Unit,
-        onError: (Throwable) -> Unit
-    )
-
-    fun removeListener()
+    suspend fun addListener(userId: String): Flow<DataResult<Idea>>
+    suspend fun removeListener()
     suspend fun getIdea(ideaId: String): DataResult<Idea>
     suspend fun saveIdea(idea: Idea): DataResult<Unit>
     fun deleteIdea(ideaId: String, onResult: (Throwable?) -> Unit)

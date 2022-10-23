@@ -2,6 +2,7 @@ package com.nims.fruitful.ui.screens.dailyideas
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
+import com.nims.fruitful.data.repository.IdeaRepository
 import com.nims.fruitful.data.service.AccountService
 import com.nims.fruitful.data.service.DataResult
 import com.nims.fruitful.data.service.LogService
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DailyIdeasViewModel @Inject constructor(
     logService: LogService,
+    private val ideaRepository: IdeaRepository,
     private val storageService: StorageService,
     private val accountService: AccountService
 ) : MainViewModel(logService) {
@@ -22,15 +24,21 @@ class DailyIdeasViewModel @Inject constructor(
     var ideas = mutableStateListOf<Idea>()
         private set
 
-
     fun addListener() {
         viewModelScope.launch(showErrorExceptionHandler) {
-            storageService.addListener(accountService.getUserId(), ::onDocumentEvent, ::onError)
+            storageService.addListener(accountService.getUserId()).collect { result ->
+                when (result) {
+                    is DataResult.Failure -> onError(result.error)
+                    is DataResult.Success -> updateIdeaInList(result.data)
+                }
+            }
         }
     }
 
     fun removeListener() {
-        viewModelScope.launch(showErrorExceptionHandler) { storageService.removeListener() }
+        viewModelScope.launch {
+            storageService.removeListener()
+        }
     }
 
     fun onIdeaActionClick(navigateToEditIdea: (String) -> Unit, idea: Idea, action: String) {
@@ -61,14 +69,11 @@ class DailyIdeasViewModel @Inject constructor(
         }
     }
 
-
-    private fun onDocumentEvent(wasDocumentDeleted: Boolean, idea: Idea) {
-        if (wasDocumentDeleted) ideas.remove(idea) else updateIdeaInList(idea)
-    }
-
     private fun updateIdeaInList(idea: Idea) {
-        val index = ideas.indexOfFirst { it.id == idea.id }
-        if (index < 0) ideas.add(idea) else ideas[index] = idea
+        if (idea.isRemoved) ideas.remove(idea) else {
+            val index = ideas.indexOfFirst { it.id == idea.id }
+            if (index < 0) ideas.add(idea) else ideas[index] = idea
+        }
     }
 
 }
