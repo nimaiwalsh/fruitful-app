@@ -24,20 +24,14 @@ class DailyIdeasViewModel @Inject constructor(
     var ideas = mutableStateListOf<Idea>()
         private set
 
-    fun addListener() {
-        viewModelScope.launch(showErrorExceptionHandler) {
-            storageService.addListener(accountService.getUserId()).collect { result ->
-                when (result) {
-                    is DataResult.Failure -> onError(result.error)
-                    is DataResult.Success -> updateIdeaInList(result.data)
-                }
+    // Do not use the ViewModelScope here, we want to use the Compose view scope to cancel this
+    // job, which in turn removes the listener.
+    suspend fun addListener() {
+        storageService.addListener(accountService.getUserId()).collect { result ->
+            when (result) {
+                is DataResult.Failure -> onError(result.error)
+                is DataResult.Success -> updateIdeaInList(result.data)
             }
-        }
-    }
-
-    fun removeListener() {
-        viewModelScope.launch {
-            storageService.removeListener()
         }
     }
 
@@ -45,7 +39,7 @@ class DailyIdeasViewModel @Inject constructor(
         when (IdeaActionOption.getByTitle(action)) {
             IdeaActionOption.EditIdea -> navigateToEditIdea(idea.id)
             IdeaActionOption.ToggleFavourite -> onFavouriteIdeaClick(idea)
-            IdeaActionOption.DeleteIdea -> onDeleteTaskClick(idea)
+            IdeaActionOption.DeleteIdea -> onDeleteIdeaClick(idea)
         }
     }
 
@@ -61,10 +55,11 @@ class DailyIdeasViewModel @Inject constructor(
         }
     }
 
-    private fun onDeleteTaskClick(idea: Idea) {
+    private fun onDeleteIdeaClick(idea: Idea) {
         viewModelScope.launch(showErrorExceptionHandler) {
-            storageService.deleteIdea(idea.id) { error ->
-                if (error != null) onError(error)
+            when (val result = storageService.deleteIdea(idea.id)) {
+                is DataResult.Failure -> onError(result.error)
+                is DataResult.Success -> {}
             }
         }
     }
@@ -75,5 +70,4 @@ class DailyIdeasViewModel @Inject constructor(
             if (index < 0) ideas.add(idea) else ideas[index] = idea
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package com.nims.fruitful.data.service.impl
 
 import android.util.Log
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentChange.Type
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 class StorageServiceImpl @Inject constructor() : StorageService {
 
@@ -32,6 +30,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
             // .addSnapshotListener and then offer those values to the channel.
             listenerRegistration = query.addSnapshotListener { value, error ->
                 Log.i("STORAGE SERVICE", "Snapshot listener added")
+
                 if (error != null) {
                     trySend(DataResult.Failure(error))
                     cancel("Error adding snapshot listener to query", error)
@@ -40,7 +39,7 @@ class StorageServiceImpl @Inject constructor() : StorageService {
 
                 value?.documentChanges?.forEach {
                     val change = it.document.toObject<Idea>()
-                    change.isRemoved = it.type == DocumentChange.Type.REMOVED
+                    change.isRemoved = it.type == Type.REMOVED
                     trySend(DataResult.Success(change))
                 }
             }
@@ -52,11 +51,6 @@ class StorageServiceImpl @Inject constructor() : StorageService {
                 listenerRegistration?.remove()
             }
         }
-
-    override suspend fun removeListener() {
-        Log.i("STORAGE SERVICE", "Snapshot listener registration removed")
-        listenerRegistration?.remove()
-    }
 
     override suspend fun getIdea(ideaId: String): DataResult<Idea> {
         return try {
@@ -84,24 +78,32 @@ class StorageServiceImpl @Inject constructor() : StorageService {
         }
     }
 
-    override fun deleteIdea(ideaId: String, onResult: (Throwable?) -> Unit) {
-        Firebase.firestore
-            .collection(IDEA_COLLECTION)
-            .document(ideaId)
-            .delete()
-            .addOnCompleteListener { onResult(it.exception) }
+    override suspend fun deleteIdea(ideaId: String): DataResult<Unit> {
+        return try {
+            Firebase.firestore
+                .collection(IDEA_COLLECTION)
+                .document(ideaId)
+                .delete()
+                .await()
+            DataResult.Success(Unit)
+        } catch (e: Exception) {
+            DataResult.Failure(e)
+        }
     }
 
-    override fun deleteAllForUser(userId: String, onResult: (Throwable?) -> Unit) {
-        Firebase.firestore
-            .collection(IDEA_COLLECTION)
-            .whereEqualTo(USER_ID, userId)
-            .get()
-            .addOnFailureListener { error -> onResult(error) }
-            .addOnSuccessListener { result ->
-                for (document in result) document.reference.delete()
-                onResult(null)
-            }
+    override suspend fun deleteAllForUser(userId: String): DataResult<Unit> {
+        return try {
+            val result = Firebase.firestore
+                .collection(IDEA_COLLECTION)
+                .whereEqualTo(USER_ID, userId)
+                .get()
+                .await()
+
+            for (document in result) document.reference.delete()
+            DataResult.Success(Unit)
+        } catch (e: Exception) {
+            DataResult.Failure(e)
+        }
     }
 
     override fun updateUserId(

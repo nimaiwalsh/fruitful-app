@@ -44,10 +44,13 @@ fun DailyIdeasScreen(
         ScreenContent(modifier = Modifier.padding(padding), navigateToEditIdea, viewModel)
     }
 
-    DisposableEffect(viewModel) {
+    LaunchedEffect(Unit) {
         viewModel.addListener()
-        onDispose { viewModel.removeListener() }
     }
+//    DisposableEffect(viewModel) {
+//        viewModel.addListener()
+//        onDispose { viewModel.removeListener() }
+//    }
 }
 
 @Composable
