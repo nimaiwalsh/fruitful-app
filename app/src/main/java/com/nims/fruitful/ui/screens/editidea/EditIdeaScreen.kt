@@ -71,5 +71,5 @@ fun EditIdeaScreen(
 private fun BasicFields(idea: Idea, viewModel: EditIdeaViewModel) {
     val fieldModifier = Modifier.fieldModifier()
     BasicField(AppText.title, idea.title, viewModel::onTitleChange, fieldModifier)
-    BasicField(AppText.description, idea.description, viewModel::onDescriptionChange, fieldModifier)
+    BasicField(AppText.description, idea.description ?: "", viewModel::onDescriptionChange, fieldModifier)
 }
