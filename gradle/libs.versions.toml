@@ -1,7 +1,24 @@
 [versions]
+# Core
 ktx = "1.9.0"
+appcompat = "1.5.1"
+material = "1.6.1"
+preference-ktx = "1.2.0"
+
+# Compose
+compose-ui = "1.2.0"
 
 [libraries]
+# Core
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference-ktx" }
+
+# Compose
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose-ui" }
+
+
+
 
 [plugins]

@@ -49,7 +49,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = libs.versions.compose.ui.orNull
     }
 
     packagingOptions {
@@ -63,14 +63,13 @@ android {
 
 dependencies {
     // Core
+    implementation(libs.material)
     implementation(libs.androidx.ktx)
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.preference.ktx)
 
     // Compose
-    implementation("androidx.compose.ui:ui:1.2.0")
+    implementation(libs.androidx.compose.ui)
     implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
     debugImplementation("androidx.compose.ui:ui-tooling:1.2.1")
     implementation("androidx.compose.material:material-icons-extended:1.2.1")
